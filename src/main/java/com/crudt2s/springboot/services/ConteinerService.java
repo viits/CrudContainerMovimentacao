@@ -29,6 +29,10 @@ public class ConteinerService {
 		return conteinerRepository.save(conteiner);
 	}
 	
+	public void delete(Integer id) {
+		conteinerRepository.deleteById(id);
+	}
+	
 	public Conteiner update(Integer id, Conteiner conteiner) {
 		Conteiner entity = conteinerRepository.getOne(id);
 		updateData(entity, conteiner);

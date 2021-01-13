@@ -28,6 +28,10 @@ public class MovimentacaoService {
 		return movimentacaoRepository.save(movimentacao);
 	}
 	
+	public void delete(Integer id) {
+		movimentacaoRepository.deleteById(id);
+	}
+	
 	public Movimentacao update(Integer id, Movimentacao movimentacao) {
 		Movimentacao entity = movimentacaoRepository.getOne(id);
 		updateData(entity, movimentacao);
