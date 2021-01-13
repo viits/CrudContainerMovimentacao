@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "tb_movimentacao")
 public class Movimentacao implements Serializable {
@@ -25,6 +27,7 @@ public class Movimentacao implements Serializable {
 	private Date inicio;
 	private Date fim;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "movimentacao")
 	private Set<Conteiner> conteiner = new HashSet<>();
 	
