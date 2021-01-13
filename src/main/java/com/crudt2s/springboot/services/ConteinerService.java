@@ -25,5 +25,22 @@ public class ConteinerService {
 		return conteiner.get();
 	}
 	
+	public Conteiner insert(Conteiner conteiner) {
+		return conteinerRepository.save(conteiner);
+	}
+	
+	public Conteiner update(Integer id, Conteiner conteiner) {
+		Conteiner entity = conteinerRepository.getOne(id);
+		updateData(entity, conteiner);
+		return conteinerRepository.save(entity);
+	}
+	
+	private void updateData(Conteiner entity,Conteiner conteiner) {
+		entity.setNomeCliente(conteiner.getNomeCliente());
+		entity.setNumeroCntr(conteiner.getNumeroCntr());
+		entity.setCategoria(conteiner.getCategoria());
+		entity.setStatus(conteiner.getStatus());
+		entity.setTipo(conteiner.getTipo());
+	}
 	
 }

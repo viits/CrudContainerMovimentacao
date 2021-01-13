@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,6 +30,18 @@ public class MovimentacaoResource {
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Movimentacao> findById(@PathVariable Integer id){
 		Movimentacao  movimentacao = movimentacaoService.findById(id);
+		return ResponseEntity.ok().body(movimentacao);
+	}
+	
+	@PostMapping
+	public ResponseEntity<Movimentacao> insert(@RequestBody Movimentacao movimentacao){
+		movimentacao =  movimentacaoService.insert(movimentacao);
+		return ResponseEntity.ok().body(movimentacao);
+	}
+	
+	@PutMapping(value = "/{id}")
+	public ResponseEntity<Movimentacao> update(@PathVariable Integer id, @RequestBody Movimentacao movimentacao){
+		movimentacao =  movimentacaoService.update(id, movimentacao);
 		return ResponseEntity.ok().body(movimentacao);
 	}
 	

@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,6 +30,18 @@ public class ConteinerResource {
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Conteiner> findById(@PathVariable Integer id){
 		Conteiner conteiner = conteinerService.findById(id);
+		return ResponseEntity.ok().body(conteiner);
+	}
+	
+	@PostMapping
+	public ResponseEntity<Conteiner> insert(@RequestBody Conteiner conteiner){
+		 conteiner = conteinerService.insert(conteiner);
+		 return ResponseEntity.ok().body(conteiner);
+	}
+	
+	@PutMapping(value = "/{id}")
+	public ResponseEntity<Conteiner> update(@PathVariable Integer id,@RequestBody Conteiner conteiner){
+		conteiner = conteinerService.update(id, conteiner);
 		return ResponseEntity.ok().body(conteiner);
 	}
 }

@@ -24,4 +24,21 @@ public class MovimentacaoService {
 		return movimentacao.get();
 	}
 	
+	public Movimentacao insert(Movimentacao movimentacao) {
+		return movimentacaoRepository.save(movimentacao);
+	}
+	
+	public Movimentacao update(Integer id, Movimentacao movimentacao) {
+		Movimentacao entity = movimentacaoRepository.getOne(id);
+		updateData(entity, movimentacao);
+		return movimentacaoRepository.save(entity);
+	}
+	
+	private void updateData(Movimentacao entity,Movimentacao movimentacao) {
+		entity.setNameNavio(movimentacao.getNameNavio());
+		entity.setTipoMovimentacao(movimentacao.getTipoMovimentacao());
+		entity.setInicio(movimentacao.getInicio());
+		entity.setFim(movimentacao.getFim());
+	}
+	
 }
