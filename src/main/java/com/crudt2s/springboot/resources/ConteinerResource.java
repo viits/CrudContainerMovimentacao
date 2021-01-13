@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,4 +24,9 @@ public class ConteinerResource {
 		return ResponseEntity.ok().body(conteinerService.findAll());
 	}
 	
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<Conteiner> findById(@PathVariable Integer id){
+		Conteiner conteiner = conteinerService.findById(id);
+		return ResponseEntity.ok().body(conteiner);
+	}
 }

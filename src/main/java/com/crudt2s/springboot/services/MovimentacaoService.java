@@ -1,6 +1,7 @@
 package com.crudt2s.springboot.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,11 @@ public class MovimentacaoService {
 	
 	public List<Movimentacao> findAll(){
 		return movimentacaoRepository.findAll();
+	}
+	
+	public Movimentacao findById(Integer id) {
+		Optional<Movimentacao> movimentacao = movimentacaoRepository.findById(id);
+		return movimentacao.get();
 	}
 	
 }
