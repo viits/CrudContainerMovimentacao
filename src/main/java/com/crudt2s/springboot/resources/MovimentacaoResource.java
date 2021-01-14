@@ -52,5 +52,18 @@ public class MovimentacaoResource {
 		return ResponseEntity.noContent().build();
 	}
 	
+	@GetMapping(value = "/relatoriosImportacao")
+	public ResponseEntity<List<Movimentacao>> relatorios(){
+		List<Movimentacao> relatorios = movimentacaoService.geraRelatorioImportacao();
+		return ResponseEntity.ok().body(relatorios);
+	}
+	
+	@GetMapping(value = "/relatoriosExportacao")
+	public ResponseEntity<List<Movimentacao>> relatoriosExportacao(){
+		List<Movimentacao> relatorios = movimentacaoService.geraRelatorioExportacao();
+		return ResponseEntity.ok().body(relatorios);
+	}
+	
+	
 	
 }
