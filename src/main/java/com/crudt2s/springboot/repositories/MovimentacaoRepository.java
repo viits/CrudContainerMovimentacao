@@ -11,12 +11,12 @@ import com.crudt2s.springboot.entities.Movimentacao;
 @Repository
 public interface MovimentacaoRepository extends JpaRepository<Movimentacao, Integer> {
 	
-	@Query(value = "SELECT m, c.nomeCliente, COUNT(c.categoria) FROM Movimentacao m INNER JOIN m.conteiner c, Conteiner WHERE c.categoria = 0")
+	@Query(value = "SELECT  m, c.nomeCliente, c.categoria FROM Movimentacao m JOIN FETCH Conteiner c ON c.movimentacao.id = m.id WHERE c.categoria = 0")
 //			 countQuery = "SELECT count(c.categoria)  FROM Container ")
 	public List<Movimentacao> relatoriosImportacao();
 
 
-	@Query(value = "SELECT m, c.nomeCliente, COUNT(c.categoria) FROM Movimentacao m INNER JOIN m.conteiner c, Conteiner WHERE c.categoria = 1")
+	@Query(value = "SELECT m, c.nomeCliente, c.categoria FROM Movimentacao m INNER JOIN Conteiner c ON c.movimentacao.id = m.id WHERE c.categoria = 1")
 	public List<Movimentacao> relatoriosExportacao();
 	
 }

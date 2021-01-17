@@ -10,8 +10,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Table(name = "tb_conteiner")
 public class Conteiner implements Serializable {
@@ -26,7 +24,7 @@ public class Conteiner implements Serializable {
 	private Status status;
 	private Categoria categoria;
 
-	@JsonIgnore
+
 	@ManyToOne
 	@JoinColumn(name = "movimentacao_id")
 	private Movimentacao movimentacao;

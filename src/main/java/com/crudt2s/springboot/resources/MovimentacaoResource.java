@@ -1,5 +1,6 @@
 package com.crudt2s.springboot.resources;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,25 +26,26 @@ public class MovimentacaoResource {
 	
 	@GetMapping
 	public ResponseEntity<List<Movimentacao>> findAll(){
-		return ResponseEntity.ok().body(movimentacaoService.findAll());
+		List<Movimentacao> list = movimentacaoService.findAll();
+		return ResponseEntity.ok().body(list);
 	}
 	
-	@GetMapping(value = "/{id}")
-	public ResponseEntity<Movimentacao> findById(@PathVariable Integer id){
-		Movimentacao  movimentacao = movimentacaoService.findById(id);
-		return ResponseEntity.ok().body(movimentacao);
-	}
+//	@GetMapping(value = "/{id}")
+//	public ResponseEntity<Movimentacao> findById(@PathVariable Integer id){
+//		Movimentacao  movimentacao = movimentacaoService.findById(id);
+//		return ResponseEntity.ok().body(movimentacao);
+//	}
 	
 	@PostMapping
-	public ResponseEntity<Movimentacao> insert(@RequestBody Movimentacao movimentacao){
-		movimentacao =  movimentacaoService.insert(movimentacao);
-		return ResponseEntity.ok().body(movimentacao);
+	public ResponseEntity<Movimentacao> insert(@RequestBody Movimentacao movimentacaoDTO){
+		movimentacaoDTO =  movimentacaoService.insert(movimentacaoDTO);
+		return ResponseEntity.ok().body(movimentacaoDTO);
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Movimentacao> update(@PathVariable Integer id, @RequestBody Movimentacao movimentacao){
-		movimentacao =  movimentacaoService.update(id, movimentacao);
-		return ResponseEntity.ok().body(movimentacao);
+	public ResponseEntity<Movimentacao> update(@PathVariable Integer id, @RequestBody Movimentacao movimentacaoDTO){
+		movimentacaoDTO =  movimentacaoService.update(id, movimentacaoDTO);
+		return ResponseEntity.ok().body(movimentacaoDTO);
 	}
 	
 	@DeleteMapping(value = "/{id}")
@@ -65,5 +67,19 @@ public class MovimentacaoResource {
 	}
 	
 	
+	@GetMapping(value = "/relatorios")
+	public ResponseEntity<List<Movimentacao>> teste(){
+		List<Movimentacao> list = new ArrayList<>();
+		List<Movimentacao> importacao = movimentacaoService.geraRelatorioImportacao();
+		for(Movimentacao x: importacao) {
+			list.add(x);
+		}
+		List<Movimentacao> exportacao = movimentacaoService.geraRelatorioExportacao();
+		for(Movimentacao x: exportacao) {
+			list.add(x);
+		}
+		return ResponseEntity.ok().body(list);
+		
+	}
 	
 }
