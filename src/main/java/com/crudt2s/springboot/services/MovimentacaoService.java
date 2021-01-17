@@ -1,9 +1,7 @@
 package com.crudt2s.springboot.services;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -13,7 +11,6 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.crudt2s.springboot.entities.Categoria;
 import com.crudt2s.springboot.entities.Movimentacao;
 import com.crudt2s.springboot.exceptions.DBException;
 import com.crudt2s.springboot.repositories.MovimentacaoRepository;
@@ -57,8 +54,8 @@ public class MovimentacaoService {
 		try {
 			Movimentacao entity = movimentacaoRepository.getOne(id);
 			updateData(entity, movimentacao);
-			movimentacaoRepository.save(entity);
-			return entity;
+			return movimentacaoRepository.save(entity);
+		
 		}catch(EntityNotFoundException e) {
 			throw new DBException(e.getMessage());
 		}
@@ -72,25 +69,9 @@ public class MovimentacaoService {
 		entity.setFim(movimentacao.getFim());
 	}
 	
-	@Transactional(readOnly = true)
-	public List<Movimentacao> geraRelatorioImportacao() {
-		List<Movimentacao> list = movimentacaoRepository.relatoriosImportacao();
+	public List<Movimentacao>pesquisa(String nome){
+		List<Movimentacao> list = movimentacaoRepository.pesquisa(nome);
 		return list;
-	}
-	
-	@Transactional(readOnly = true)
-	public List<Movimentacao> geraRelatorioExportacao() {
-		List<Movimentacao> list = movimentacaoRepository.relatoriosExportacao();
-		List<Movimentacao> export = new ArrayList<>();
-		
-		for(Movimentacao m : list) {
-			List<Categoria>c = m.getConteiner().stream().map(x -> x.getCategoria()).collect(Collectors.toList());
-			Categoria ca = c.get(1);
-			if(ca == c.get(1)) {
-				export.add(m);
-			}
-		}
-		return export;
 	}
 	
 }

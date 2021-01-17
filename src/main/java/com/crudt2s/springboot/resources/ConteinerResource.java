@@ -27,13 +27,13 @@ public class ConteinerResource {
 	public ResponseEntity<List<Conteiner>> findAll(){
 		return ResponseEntity.ok().body(conteinerService.findAll());
 	}
-//	
-//	@GetMapping(value = "/{id}")
-//	public ResponseEntity<Conteiner> findById(@PathVariable Integer id){
-//		Conteiner conteiner = conteinerService.findById(id);
-//		return ResponseEntity.ok().body(conteiner);
-//	}
-//	
+	
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<Conteiner> findById(@PathVariable Integer id){
+		Conteiner conteiner = conteinerService.findById(id);
+		return ResponseEntity.ok().body(conteiner);
+	}
+	
 	@PostMapping
 	public ResponseEntity<Conteiner> insert(@RequestBody Conteiner conteiner){
 		

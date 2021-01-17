@@ -1,6 +1,7 @@
 package com.crudt2s.springboot.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -26,10 +27,10 @@ public class ConteinerService {
 		return list;
 	}
 
-//	public Conteiner findById(Integer id) {
-//		Optional<Conteiner> conteiner = conteinerRepository.findById(id);
-//		return conteiner.get();
-//	}
+	public Conteiner findById(Integer id) {
+		Optional<Conteiner> conteiner = conteinerRepository.findById(id);
+		return conteiner.get();
+	}
 
 	public Conteiner insert(Conteiner conteiner) {
 	

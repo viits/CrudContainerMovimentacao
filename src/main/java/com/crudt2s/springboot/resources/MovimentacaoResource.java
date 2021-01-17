@@ -1,6 +1,5 @@
 package com.crudt2s.springboot.resources;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +29,11 @@ public class MovimentacaoResource {
 		return ResponseEntity.ok().body(list);
 	}
 	
-//	@GetMapping(value = "/{id}")
-//	public ResponseEntity<Movimentacao> findById(@PathVariable Integer id){
-//		Movimentacao  movimentacao = movimentacaoService.findById(id);
-//		return ResponseEntity.ok().body(movimentacao);
-//	}
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<Movimentacao> findById(@PathVariable Integer id){
+		Movimentacao  movimentacao = movimentacaoService.findById(id);
+		return ResponseEntity.ok().body(movimentacao);
+	}
 	
 	@PostMapping
 	public ResponseEntity<Movimentacao> insert(@RequestBody Movimentacao movimentacaoDTO){
@@ -43,9 +42,9 @@ public class MovimentacaoResource {
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Movimentacao> update(@PathVariable Integer id, @RequestBody Movimentacao movimentacaoDTO){
-		movimentacaoDTO =  movimentacaoService.update(id, movimentacaoDTO);
-		return ResponseEntity.ok().body(movimentacaoDTO);
+	public ResponseEntity<Movimentacao> update(@PathVariable Integer id, @RequestBody Movimentacao movimentacao){
+		movimentacao =  movimentacaoService.update(id, movimentacao);
+		return ResponseEntity.ok().body(movimentacao);
 	}
 	
 	@DeleteMapping(value = "/{id}")
@@ -54,32 +53,10 @@ public class MovimentacaoResource {
 		return ResponseEntity.noContent().build();
 	}
 	
-	@GetMapping(value = "/relatoriosImportacao")
-	public ResponseEntity<List<Movimentacao>> relatorios(){
-		List<Movimentacao> relatorios = movimentacaoService.geraRelatorioImportacao();
-		return ResponseEntity.ok().body(relatorios);
-	}
-	
-	@GetMapping(value = "/relatoriosExportacao")
-	public ResponseEntity<List<Movimentacao>> relatoriosExportacao(){
-		List<Movimentacao> relatorios = movimentacaoService.geraRelatorioExportacao();
-		return ResponseEntity.ok().body(relatorios);
-	}
-	
-	
-	@GetMapping(value = "/relatorios")
-	public ResponseEntity<List<Movimentacao>> teste(){
-		List<Movimentacao> list = new ArrayList<>();
-		List<Movimentacao> importacao = movimentacaoService.geraRelatorioImportacao();
-		for(Movimentacao x: importacao) {
-			list.add(x);
-		}
-		List<Movimentacao> exportacao = movimentacaoService.geraRelatorioExportacao();
-		for(Movimentacao x: exportacao) {
-			list.add(x);
-		}
+	@GetMapping(value ="/pesquisa/?name={name}")
+	public ResponseEntity<List<Movimentacao>> pesquisa(@PathVariable String nome){
+		List<Movimentacao> list = movimentacaoService.pesquisa(nome);
 		return ResponseEntity.ok().body(list);
-		
 	}
 	
 }
